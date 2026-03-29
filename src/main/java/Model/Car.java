@@ -55,4 +55,9 @@ public class Car {
 	public void setPower(int power){
 		this.power = power;
 	}
+	
+	@Override
+	public String toString() {
+		return id + ";" + name + ";" + placa + ";" + type + ";" + power;
+	}
 }

@@ -5,9 +5,10 @@ import java.util.Collection;
 
 import DAOCars.DAOCars;
 import Model.Car;
+import Model.CarException;
 
 public class ServiceCars {
-	DAOCars daoCars;
+	private DAOCars daoCars;
 	
 	public ServiceCars(DAOCars daoCars) {
 		this.daoCars = daoCars;
@@ -26,18 +27,37 @@ public class ServiceCars {
 		return daoCars.getCar(id);
 	}
 	
-	public boolean addCar(Car car) {
-			if((!car.getName().isEmpty() && !car.getName().equals("null")) && (!car.getType().isEmpty() && !car.getType().equals("null")) && (!car.getPlaca().isEmpty() && !car.getPlaca().equals("null"))) {
+	private boolean checkParamsCar(Car car) throws CarException{
+		if(car.getName().isEmpty() || car.getType().isEmpty() || car.getPlaca().isEmpty()) {
+			throw new CarException("Erro: Dados nulos!");
+		}
+		
+		if(!car.getPlaca().chars().anyMatch(c->Character.isLetter(c)) || !car.getPlaca().chars().anyMatch(Character::isDigit)) {
+			throw new CarException("Erro: placa inválida!");
+		}
+		
+		if(car.getPower() > 5000) {
+			throw new CarException("Erro: Cilindrada inválida!");
+		}
+		
+		return true;
+	}
+	
+	public boolean addCar(Car car) throws CarException{
+			if(checkParamsCar(car)) {
 				return daoCars.addCar(car);
 			}
 			return false;
 	}
 	
-	public boolean UpdateCar(Car car) {
+	public boolean updateCar(Car car) throws CarException{
+		if(checkParamsCar(car)) {
+			return daoCars.updateCar(car);
+		}
 		return false;
 	}
 	
-	public boolean deleteCar(Car car) {
-		return false;
+	public boolean deleteCar(int id) {
+		return daoCars.deleteCar(id);
 	}
 }

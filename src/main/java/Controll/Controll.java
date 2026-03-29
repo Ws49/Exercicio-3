@@ -1,16 +1,15 @@
 package Controll;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-
-import org.eclipse.jetty.util.ajax.JSON;
 
 import DAOCars.DAOCars;
 import Model.Car;
 import Service.ServiceCars;
 import View.ViewReponse;
+import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
+import spark.template.handlebars.HandlebarsTemplateEngine;
 
 
 public class Controll {
@@ -18,8 +17,11 @@ public class Controll {
 	private ViewReponse view;
 	private ServiceCars service;
 	
+	public static HandlebarsTemplateEngine getHandleEngine() {
+		return new HandlebarsTemplateEngine();
+	}
+	
 	public Controll(DAOCars origimDataCars, ViewReponse view){
-		
 		this.sourceCars = origimDataCars;
 		this.view = view;
 		this.sourceCars.setControll(this);
@@ -27,53 +29,72 @@ public class Controll {
 		this.service = new ServiceCars(sourceCars);
 	}
 	
-	
 	public Object getAllCars(Request request, Response response) {
-		response.type("text/html");
+		response.type("application/json");
 		ArrayList<Car> cars = service.getAllCars();
-		return cars == null ? "<h1>Erro ao encontrar os carros</h1>" : view.toJson(cars);
+		
+		if(cars == null) {
+			response.status(400);
+			return  "{\"message\" : \"Falha ao adiconar carro\"}";
+		}else {
+			response.status(200);
+			return view.toJsonCars(cars);
+		}
 	}
 	
-	public Object getCar(Request request, Response response) {
+	public ModelAndView getCar(Request request, Response response) {
 		response.type("text/html");
 		Car car = service.getCar(Integer.valueOf(request.params(":id")));
-		return car == null ? "<h1>Erro carro não cadastrado</h1>" : car.getName();
-	}
-	
-	@SuppressWarnings("unchecked")
-	public Object addCar(Request request, Response response) {
-		response.type("text/html");
-		HashMap<String,Object> values = (HashMap<String, Object>)JSON.parse(request.body());
-		int power = 0;
-		if(!String.valueOf(values.get("power")).equals("null")) {
-			power = Integer.valueOf(String.valueOf(values.get("power")));
-		}
-		
-		boolean result = false;
-		
-		if(power != 0) {
-			
-			result = service.addCar(
-				new Car(0,
-						(String.valueOf(values.get("name"))),
-						String.valueOf(values.get("placa")),
-						String.valueOf(values.get("type")),
-						power));
-		}
-		
-		if(result) {
-			response.status(201);
-			return "{\"message\" : \"Adicionado com sucesso!\"}";
-		}else {
+		if(car == null) {
 			response.status(400);
-			return "{\"message\" : \"Falha ao adiconar carro\"}";
+			return  view.toPageStatus("Erro","Carro não encontrado");
+		}else {
+			response.status(200);
+			return view.toPageCar(car); 
 		}
 	}
 	
+
+	public ModelAndView addCar(Request request, Response response) {
+		response.type("text/html");
+		try {
+			int power = Integer.valueOf(request.queryParams("power"));
+			service.addCar(new Car(0, request.queryParams("name"), request.queryParams("placa"), request.queryParams("type"), power));
+		}catch (Exception e) {
+			return  view.toPageStatus("Erro",e.getMessage());
+		}
+		return view.toPageStatus("Cadastrado","Carro cadastrado com sucesso!");	
+	}
+	
+	public ModelAndView deleteCar(Request request, Response response) {
+		response.type("text/html");
+		boolean result = service.deleteCar(Integer.valueOf(request.params(":id")));
+		if(!result) {
+			response.status(400);
+			return  view.toPageStatus("Erro","Ocorreu um erro ao deletar o carro");
+		}else {
+			response.status(200);
+			return  view.toPageStatus("Deletado","Carro deletado!"); 
+		}
+	}
+	
+	public ModelAndView updateCar(Request request, Response response) {
+		response.type("text/html");
+	
+		try {
+			service.updateCar(new Car(Integer.valueOf(request.params(":id")),request.queryParams("name"),request.queryParams("placa"),request.queryParams("type"),Integer.valueOf(request.queryParams("power"))));
+		}catch (Exception e) {
+			response.status(400);
+			return  view.toPageStatus("Erro",e.getMessage());
+		}
+
+		response.status(200);
+		return  view.toPageStatus("Atualizado","carro atualizado com sucesso"); 
+		
+	}
 	
 	public void recivErrosDAO(Exception e) {
 		System.out.println(new String(view.showError(e)));
-		e.printStackTrace();
 	}
 	
 }

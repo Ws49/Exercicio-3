@@ -9,6 +9,7 @@ import java.util.Collection;
 import Controll.Controll;
 import DAOCars.DAOCars;
 import Model.Car;
+import Model.CarException;
 
 enum QuerySql{
 	GET("SELECT * FROM car WHERE id = ?"),
@@ -105,7 +106,7 @@ public class ManagerDAOCarsPostgreBD implements DAOCars{
 
 
 	@Override
-	public boolean addCar(Car car) {
+	public boolean addCar(Car car) throws CarException{
 		try {
 
 			PreparedStatement query = connection.getConn().prepareStatement(QuerySql.INSERT.getSql());
@@ -118,13 +119,17 @@ public class ManagerDAOCarsPostgreBD implements DAOCars{
 			return result == 1 ?  true :  false;
 			
 		} catch (Exception e) {
-			controll.recivErrosDAO(new Exception("ERRO AO INSERIR CARRO :" + e.getMessage()));
+			if(e.getMessage().contains("duplicate key value")) {
+				throw new CarException("Erro ao adicionar carro: está placa já se encontra cadastrada!");
+			}else {
+				controll.recivErrosDAO(new Exception("ERRO AO ADICIONAR CARRO :" + e.getMessage()));
+				throw new CarException("Erro ao adicionar carro");
+			}
 		}
-		return false;
 	}
 
 	@Override
-	public boolean UpdateCar(Car car) {
+	public boolean updateCar(Car car) throws CarException{
 		try {
 
 			PreparedStatement query = connection.getConn().prepareStatement(QuerySql.UPDATE.getSql());
@@ -138,23 +143,27 @@ public class ManagerDAOCarsPostgreBD implements DAOCars{
 			return result == 1 ?  true :  false;
 			
 		} catch (Exception e) {
-			controll.recivErrosDAO(new Exception("ERRO AO ATUALIZAR CARRO :" + e.getMessage()));
+			if(e.getMessage().contains("duplicate key value")) {
+				throw new CarException("Erro ao atualizar carro: está placa já se encontra cadastrada!");
+			}else {
+				controll.recivErrosDAO(new Exception("ERRO AO ATUALIZAR CARRO :" + e.getMessage()));
+				throw new CarException("Erro ao atualizar carro");
+			}
 		}
-		return false;
 	}
 
 	@Override
-	public boolean removeCar(Car car) {
+	public boolean deleteCar(int id) {
 		try {
 
 			PreparedStatement query = connection.getConn().prepareStatement(QuerySql.DELETE.getSql());
-			query.setInt(1, car.getId());
+			query.setInt(1, id);
 			int result = query.executeUpdate();
 			query.close();
 			return result == 1 ?  true :  false;
 			
 		} catch (Exception e) {
-			controll.recivErrosDAO(new Exception("ERRO AO REMOVER TODOS OS CARROS :" + e.getMessage()));
+			controll.recivErrosDAO(new Exception("ERRO AO REMOVER O CARRO :" + e.getMessage()));
 		}
 		return false;
 	}
