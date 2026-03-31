@@ -1,0 +1,185 @@
+:root{
+    --bg-color : rgb(11, 1, 31);
+    --main-fg-color: rgba(0, 0, 0, 0.336);
+    --main-color: rgb(1, 96, 238);
+
+}
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', 'Segoe UI', sans-serif;
+    font-variant: small-caps;
+}
+html{
+    height: 100%;
+    width: 100%; 
+}
+
+body{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 4rem;
+    background-color: var(--bg-color);
+    color: white;
+}
+
+table,tr,td,th{
+    border: solid 2px  blue;
+}
+
+td button{
+    width: 100%;
+    height: 100%;
+    color: white;
+    border: none;
+    transition: 0.3s ease-in-out;
+}
+
+td button:hover, .content-car button:hover{
+    cursor: pointer;
+    background-color: rgb(13, 186, 216);
+}
+
+.updateCar{
+    background-color: var(--main-color);
+}
+
+.delCar{
+    background-color: rgb(238, 1, 1);
+}
+table{
+    width: 80%;
+}
+.container{
+    background-color: var(--main-fg-color);
+    box-shadow: 0 0 10px blue;
+    border-top-left-radius: 50px;
+    width: 80%;
+    overflow-y: auto;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding-top: 10rem;
+    gap: 10rem;
+}
+
+.head-title{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: auto;
+    max-height: 40%;
+    color: white;
+}
+
+.center-container{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+.head-title button{
+    padding: 10px;
+    text-shadow:  0 0 10px blue;
+    color: aliceblue;
+    border-radius: 40px;
+    transition: 0.3s ease-in-out;
+    border: none;
+    background-color: black;
+    height: auto;
+    width: 30rem;
+    font-size: 20px;
+}
+
+.head-title button:hover{
+    box-shadow: 0 0 10px blue;
+    cursor: pointer;
+}
+
+.head-title h1{
+    font-size: 50px;
+}
+
+.center-container img{
+    max-height: 15rem;
+    width: 15rem;
+    
+}
+
+::-webkit-scrollbar{
+    width: 15px;
+    height: 4px;
+}
+::-webkit-scrollbar-thumb{
+    background-color: var(--main-color);
+    height: 4px;
+}
+
+::-webkit-scrollbar-track{
+    background-color: transparent;
+}
+
+.content-car{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: start;
+    padding: 1rem;
+    gap: 4rem;
+}
+
+.content-car form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 4rem;
+}
+.container:has(.content-car) {
+    padding: 0;
+}
+
+.content-car form input[type="text"],input[type="number"]{
+    padding: 10px;
+    text-shadow:  0 0 10px blue;
+    color: aliceblue;
+    border-radius: 40px;
+    transition: 0.3s ease-in-out;
+    border: none;
+    background-color: black;
+    height: auto;
+    width: 30rem;
+    font-size: 20px;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+}
+
+.content-car form input[type="text"]:focus,input[type="number"]:focus{
+    box-shadow: 0 0 10px blue;
+    border-color: var(--main-color);
+    outline: none;
+}
+
+.content-car .updateCar, .content-car .delCar{
+    color: white;
+    transition: 0.3s ease-in-out;
+    height: 10%;
+    font-size: 30px;
+    border-radius: 20px;
+}
+
+.content-car img{
+    max-width: 60%;
+    height: auto;
+}
+
+.photo-car{
+    border-radius: 40px;
+}

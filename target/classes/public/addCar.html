@@ -3,15 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Adicionar Carro</title>
+    <link rel="stylesheet" href="/assets/style.css"/>
+    <link rel="shortcut icon" href="/assets/icon.png" type="image/x-icon" />
+    <title>Adicionar</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function(){
+            $('.input-photo-car').on('change',function (){
+                $('.photo-car').attr('src',URL.createObjectURL($(this)[0].files[0]))
+            })
+        })
+    </script>
 </head>
 <body>
-    <form action="http://0.0.0.0:4444/cars" method="POST">
-        <input type="text" name="name" id="name" required>
-        <input type="text" name="placa" id="placa" required>
-        <input type="text" name="type" id="type" required>
-        <input type="number" name="power" id="power" required>
-        <button type="submit">enviar</button>
-    </form>
+     <main class="container">
+        <div class="content-car">
+            <form  action="/cars" method="POST">
+                <input type="text" name="name" id="name" placeholder="name" required>
+                <input type="text" name="placa" id="placa" placeholder="placa" required>
+                <input type="text" name="type" id="type" placeholder="type" required>
+                <input type="number" name="power" id="power" placeholder="power" required>
+                <input type="file" name="photo" class="input-photo-car" accept="image/png, image/jpeg ">
+                <button type="submit" class="updateCar">Enviar</button>
+            </form>
+            <img class="photo-car" src="/assets/icon.png">
+        </div>
+    </main>
 </body>
 </html>

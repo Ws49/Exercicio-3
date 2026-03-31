@@ -1,11 +1,83 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gerenciador de Carros</title>
-</head>
-<body>
-  <a href="addCar.html">Adicionar carro</a>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gerenciador de Carros</title>
+    <link rel="stylesheet" href="assets/style.css" />
+    <link rel="shortcut icon" href="assets/icon.png" type="image/x-icon" />
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+        <script>
+          $(document).ready(async function(){
+            let cars = [];
+
+            try{
+              let response = await fetch('/cars',{method : "GET"});
+              if(!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+              cars = await response.json();
+            }catch(exception){
+              alert(`ERRO: ${exception}`);
+            }
+
+            for(let i =0; i < cars.length; i++){
+              $('#table-cars').append('<tr class="cell-car">');
+            }
+            
+            let indexCars =0;
+            
+            Array.from(document.getElementsByClassName('cell-car')).forEach((cell) => {
+              let cellJ = $(cell);
+              cellJ.append(`<td>${cars[indexCars].id}`);
+              cellJ.append(`<td>${cars[indexCars].name}`);
+              cellJ.append(`<td>${cars[indexCars].placa}`);
+              cellJ.append(`<td>${cars[indexCars].type}`);
+              cellJ.append(`<td>${cars[indexCars].power}`);
+              cellJ.append(`<td><button class="updateCar" carId=${cars[indexCars].id}>Atualizar`);
+              cellJ.append(`<td><button class="delCar" carId=${cars[indexCars].id}>Delete`);
+              indexCars++;
+            });
+
+            $('.updateCar').on('click',function (){
+                let carId = $(this).attr('carId');
+                window.location.href = `/car/${carId}`;
+            });
+
+            $('.delCar').on('click',function (){
+                let carId = $(this).attr('carId');                
+                window.location.href = `/car/delete/${carId}`;
+            });
+
+
+            
+          });
+        </script>
+  </head>
+  <body>
+    <main class="container">
+      <div class="head-title">
+        <div class="center-container">
+          <img src="assets/icon.png" alt="">
+          <h1>Gerenciador de Carros</h1>       
+          <a href="addCar.html"><button>Adicionar carro</button></a>
+        </div>
+      </div>
+
+
+      <table id="table-cars">
+        <tr>
+          <th>ID</th>
+          <th>NAME</th>
+          <th>PLACA</th>
+          <th>TYPE</th>
+          <th>POWER</th>
+          <th>Atualizar</th>
+          <th>Deletar</th>
+        </tr>  
+      </table>
+    </main>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+  </body>
 </html>
