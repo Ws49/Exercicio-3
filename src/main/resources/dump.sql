@@ -43,9 +43,9 @@ SET default_table_access_method = heap;
 --
 
 CREATE TABLE public.car (
-    id integer DEFAULT nextval('public.car_id_seq'::regclass) NOT NULL,
+    id integer DEFAULT nextval('public.car_id_seq'::regclass) NOT NULL PRIMARY KEY,
     name text NOT NULL,
-    placa text,
+    placa text UNIQUE,
     type text,
     power integer,
     photo text
