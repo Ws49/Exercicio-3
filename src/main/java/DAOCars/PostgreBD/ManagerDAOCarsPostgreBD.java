@@ -15,8 +15,8 @@ enum QuerySql{
 	GET("SELECT * FROM car WHERE id = ?"),
 	GET_ORDERBY("SELECT * FROM car ORDER BY "),
 	GETALL("SELECT * FROM car"),
-	INSERT("INSERT INTO car(name,placa,type,power) VALUES (?,?,?,?)"),
-	UPDATE("UPDATE car SET name=?, placa=?, type=?, power=? WHERE id = ?"),
+	INSERT("INSERT INTO car(name,placa,type,power,photo) VALUES (?,?,?,?,?)"),
+	UPDATE("UPDATE car SET name=?, placa=?, type=?, power=?, photo=? WHERE id = ?"),
 	DELETE("DELETE FROM car WHERE id = ?"),
 	DELETEALL("DELETE FROM car");
 	private String sql;
@@ -51,7 +51,7 @@ public class ManagerDAOCarsPostgreBD implements DAOCars{
 			getQuery.setInt(1, id);
 			ResultSet result = getQuery.executeQuery();
 			if(result.next()) {
-				Car car = new Car(result.getInt("id"),result.getString("name"),result.getString("placa"),result.getString("type"),result.getInt("power"));
+				Car car = new Car(result.getInt("id"),result.getString("name"),result.getString("placa"),result.getString("type"),result.getString("photo"),result.getInt("power"));
 				return car;
 				
 			}else {
@@ -81,7 +81,7 @@ public class ManagerDAOCarsPostgreBD implements DAOCars{
 			cars = new ArrayList<Car>();
 	
 			while(result.next()) {				
-				Car newCar = new Car(result.getInt("id"),result.getString("name"),result.getString("placa"),result.getString("type"),result.getInt("power"));
+				Car newCar = new Car(result.getInt("id"),result.getString("name"),result.getString("placa"),result.getString("type"),result.getString("photo"),result.getInt("power"));
 				cars.add(newCar);
 			}
 			
@@ -114,6 +114,7 @@ public class ManagerDAOCarsPostgreBD implements DAOCars{
 			query.setString(2, car.getPlaca());
 			query.setString(3, car.getType());
 			query.setInt(4, car.getPower());
+			query.setString(5, car.getPhoto());
 			int result =  query.executeUpdate();
 			query.close();
 			return result == 1 ?  true :  false;
@@ -137,7 +138,9 @@ public class ManagerDAOCarsPostgreBD implements DAOCars{
 			query.setString(2, car.getPlaca());
 			query.setString(3, car.getType());
 			query.setInt(4, car.getPower());
-			query.setInt(5, car.getId());
+			query.setString(5, car.getPhoto());
+			query.setInt(6, car.getId());
+			
 			int result = query.executeUpdate();
 			query.close();
 			return result == 1 ?  true :  false;

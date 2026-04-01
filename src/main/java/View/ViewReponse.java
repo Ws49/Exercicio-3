@@ -35,6 +35,7 @@ public class ViewReponse implements View{
 		values.put("placa",car.getPlaca());
 		values.put("type",car.getType());
 		values.put("power",car.getPower());
+		values.put("photo",car.getPhoto());
 		return new ModelAndView(values, "car.hbs");
 	}
 	

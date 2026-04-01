@@ -43,9 +43,20 @@
                 window.location.href = `/car/${carId}`;
             });
 
-            $('.delCar').on('click',function (){
-                let carId = $(this).attr('carId');                
-                window.location.href = `/car/delete/${carId}`;
+            $('.delCar').on('click',async function (){
+                let carId = $(this).attr('carId');
+				let confirmResult = confirm("Deseja realmente apagar?");
+				
+				if(confirmResult){                
+					try{
+		             let response = await fetch(`/car/delete/${carId}`,{method : "POST"});
+		             if(!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+		           }catch(exception){
+		             alert(`ERRO: ${exception}`);
+		           }
+				   
+				   window.location.reload();
+				}
             });
 
 

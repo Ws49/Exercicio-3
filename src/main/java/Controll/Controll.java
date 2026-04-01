@@ -59,7 +59,7 @@ public class Controll {
 		response.type("text/html");
 		try {
 			int power = Integer.valueOf(request.queryParams("power"));
-			service.addCar(new Car(0, request.queryParams("name"), request.queryParams("placa"), request.queryParams("type"), power));
+			service.addCar(new Car(0, request.queryParams("name"), request.queryParams("placa"), request.queryParams("type"), request.queryParams("photo"),power));
 		}catch (Exception e) {
 			return  view.toPageStatus("Erro",e.getMessage());
 		}
@@ -82,7 +82,7 @@ public class Controll {
 		response.type("text/html");
 	
 		try {
-			service.updateCar(new Car(Integer.valueOf(request.params(":id")),request.queryParams("name"),request.queryParams("placa"),request.queryParams("type"),Integer.valueOf(request.queryParams("power"))));
+			service.updateCar(new Car(Integer.valueOf(request.params(":id")),request.queryParams("name"),request.queryParams("placa"),request.queryParams("type"),request.queryParams("photo"),Integer.valueOf(request.queryParams("power"))));
 		}catch (Exception e) {
 			response.status(400);
 			return  view.toPageStatus("Erro",e.getMessage());

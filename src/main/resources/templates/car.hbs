@@ -5,21 +5,70 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/assets/style.css"/>
     <link rel="shortcut icon" href="/assets/icon.png" type="image/x-icon" />
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+	<script>
+	$(document).ready(function() {
+    $('.input-photo-car').on('change', async function(e) {
+        const file = e.target.files[0];
+        if (!file) return;
+
+
+        if (file.size > 5 * 1024 * 1024) { 
+            alert('Arquivo muito grande!');
+            return;
+        }
+
+        try {
+           
+            const bitmap = await createImageBitmap(file);
+            
+            
+            const maxWidth = 800;
+            const scale = maxWidth / bitmap.width;
+            const width = maxWidth;
+            const height = bitmap.height * scale;
+
+            
+            const canvas = document.createElement('canvas');
+            canvas.width = width;
+            canvas.height = height;
+            const ctx = canvas.getContext('2d');
+
+
+            ctx.imageSmoothingEnabled = true;
+            ctx.imageSmoothingQuality = 'high';
+
+            ctx.drawImage(bitmap, 0, 0, width, height);
+
+            const base64 = canvas.toDataURL('image/jpeg', 0.8); 
+
+
+            $('#photo-car').val(base64);
+            $('.photo-car').attr('src', base64);
+            
+            bitmap.close();
+        } catch (err) {
+            console.error("Erro ao processar imagem:", err);
+        }
+    });
+});
+	</script>
     <title>Car {{id}}</title>
 </head>
 <body>
      <main class="container">
         <div class="content-car">
             <form method="POST">
-                <input type="text" name="name" id="name" value="{{name}}" readonly>
-                <input type="text" name="placa" id="placa" value="{{placa}}">
-                <input type="text" name="type" id="type" value="{{type}}">
-                <input type="number" name="power" id="power" value="{{power}}">
-                <input type="file" name="photo" class="input-photo-car" accept="image/png, image/jpeg ">
+                <input type="text" name="name" id="name" value="{{name}}" placeholder="name" required>
+                <input type="text" name="placa" id="placa" value="{{placa}}" placeholder="placa" required>
+                <input type="text" name="type" id="type" value="{{type}}" placeholder="type" required>
+                <input type="number" name="power" id="power" value="{{power}}" placeholder="power" required>
+                <input type="text" name="photo" id="photo-car" value="{{photo}}" readonly>
+                <input type="file" class="input-photo-car" accept="image/png, image/jpeg ">
                 <button type="submit" formaction="/car/update/{{id}}" class="updateCar">Salvar</button>
                 <button type="submit" formaction="/car/delete/{{id}}" class="delCar">Deletar</button>
             </form>
-            <img src="/assets/icon.png">
+            <img class="photo-car" src="{{photo}}">
         </div>
     </main>
 </body>

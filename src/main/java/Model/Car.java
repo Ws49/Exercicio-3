@@ -5,14 +5,16 @@ public class Car {
 	private String name;
 	private String placa;
 	private String type;
+	private String photo;
 	private int power;
 	
 	
-	public Car(int id, String name, String placa, String type, int power) {
+	public Car(int id, String name, String placa, String type, String photo, int power) {
 		this.id = id;
 		this.name = name;
 		this.placa = placa;
 		this.power = power;
+		this.photo = photo;
 		this.type = type;
 	}
 	
@@ -54,6 +56,14 @@ public class Car {
 	
 	public void setPower(int power){
 		this.power = power;
+	}
+	
+	public String getPhoto() {
+		return photo;
+	}
+	
+	public void setPhoto(String photo) {
+		this.photo = photo;
 	}
 	
 	@Override
