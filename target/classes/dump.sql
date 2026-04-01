@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict eyS5xCkB9U7SqchF4U2zQBS0xOHnaI0dchrxfecbbxC53tdh94Znr2zl9UZ0iGT
+\restrict jbJLIcPz6C0LfbYATTbjWKOtwCOFekMqkVErfv5KZ1tyJJNm0ctCxsCuBrDcYwK
 
 -- Dumped from database version 17.6 (Debian 17.6-1)
 -- Dumped by pg_dump version 18.3 (Debian 18.3-1+b1)
@@ -18,6 +18,55 @@ SET check_function_bodies = false;
 SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
+
+--
+-- Name: car_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.car_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.car_id_seq OWNER TO postgres;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- Name: car; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.car (
+    id integer DEFAULT nextval('public.car_id_seq'::regclass) NOT NULL,
+    name text NOT NULL,
+    placa text,
+    type text,
+    power integer,
+    photo text
+);
+
+
+ALTER TABLE public.car OWNER TO postgres;
+
+--
+-- Name: usuario; Type: TABLE; Schema: public; Owner: ti2cc
+--
+
+CREATE TABLE public.usuario (
+    codigo integer NOT NULL,
+    login text,
+    senha text,
+    sexo character(1)
+);
+
+
+ALTER TABLE public.usuario OWNER TO ti2cc;
 
 --
 -- Data for Name: car; Type: TABLE DATA; Schema: public; Owner: postgres
@@ -47,8 +96,32 @@ SELECT pg_catalog.setval('public.car_id_seq', 51, true);
 
 
 --
+-- Name: car car_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.car
+    ADD CONSTRAINT car_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: car unique_placa; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.car
+    ADD CONSTRAINT unique_placa UNIQUE (placa);
+
+
+--
+-- Name: usuario usuario_pkey; Type: CONSTRAINT; Schema: public; Owner: ti2cc
+--
+
+ALTER TABLE ONLY public.usuario
+    ADD CONSTRAINT usuario_pkey PRIMARY KEY (codigo);
+
+
+--
 -- PostgreSQL database dump complete
 --
 
-\unrestrict eyS5xCkB9U7SqchF4U2zQBS0xOHnaI0dchrxfecbbxC53tdh94Znr2zl9UZ0iGT
+\unrestrict jbJLIcPz6C0LfbYATTbjWKOtwCOFekMqkVErfv5KZ1tyJJNm0ctCxsCuBrDcYwK
 
