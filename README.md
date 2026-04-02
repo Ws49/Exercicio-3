@@ -1,4 +1,4 @@
-<img width=100% src="https://capsule-render.vercel.app/api?type=waving&color=0B011F&height=120&section=header"/>
+<img width=100% src="https://capsule-render.vercel.app/api?type=waving&color=700af5&height=120&section=header"/>
 
 <h1 align="center">Esse é o Exercício 3: Integração Spark</h1>
 <p align="center">
@@ -35,6 +35,6 @@
 </div>
 <br>
 <br>
-<img width=100% src="https://capsule-render.vercel.app/api?type=waving&color=0B011F&height=120&section=header"/>
+<img width=100% src="https://capsule-render.vercel.app/api?type=waving&color=700af5&height=120&section=header"/>
 
 # Exercicio-3
