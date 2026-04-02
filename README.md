@@ -13,7 +13,6 @@
              <br> - Listar carros
              <br> - Atualizar informações
              <br> - Deletar registros
-             <br> - Ordenar resultados
        </p>
 </p>
 
