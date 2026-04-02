@@ -2,7 +2,7 @@
 
 <h1 align="center">Esse é o Exercício 3: Integração Spark</h1>
 <p align="center">
-       O objetivo desse exercício, proposto pela disciplina do Trabalho Interdisciplinar II: Back-End, do Curso Ciência da Computação, é a criação de um programa em Java utilizando o ambiente de desenvolvimento Eclipse junto ao Banco de dados PostgreSQL.
+       O objetivo desse exercício, proposto pela disciplina do Trabalho Interdisciplinar II: Back-End, do Curso Ciência da Computação, é criar um programa em Java utilizando o ambiente Eclipse e SGBDR PostgreSQL para implementar um back-end de aplicação Web utilizando o framework Spark.
        <p align="left">
               <br> - Neste exercício, utilizei o princípio de Padrões de Projeto para melhor implementação.
               <br> - Foram implementados os padrões MVC e DAO
