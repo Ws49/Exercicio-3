@@ -5,7 +5,7 @@
        O objetivo desse exercício, proposto pela disciplina do Trabalho Interdisciplinar II: Back-End, do Curso Ciência da Computação, é criar um programa em Java utilizando o ambiente Eclipse e SGBDR PostgreSQL para implementar um back-end de aplicação Web utilizando o framework Spark.
        <p align="left">
               <br> - Neste exercício, utilizei o princípio de Padrões de Projeto para melhor implementação.
-              <br> - Foram implementados os padrões MVC e DAO
+              <br> - Foram implementados a Arquitetura Service junto aos padrões MVC e DAO
               <br> - O banco de dados está exportado em src/main/resources, para testar basta importar.
              <br><br><h3 align="center">📋 Funcionalidades</h3>
              <br> O sistema permite realizar operações CRUD em um banco de dados PostgreSQL:
