@@ -31,7 +31,7 @@
        <br><h3 align="center">✅ Resultados</h3>
         <img align="center"  src="https://github.com/user-attachments/assets/1ebbcbd0-d93d-4b04-bb73-cab95e767d4d">
         <img align="center"  src="https://github.com/user-attachments/assets/7216aa8f-5627-4cde-a99c-4aa3e462a6ee"> 
-"">
+
 </div>
 <br>
 <br>
