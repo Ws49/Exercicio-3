@@ -19,8 +19,9 @@ public class ServiceCars {
 		return result != null ? new ArrayList<Car>(result) : null;
 	}
 	
-	public Collection<Car> getAllCarOrderByFilter(String filter){
-		return null;
+	public ArrayList<Car> getAllCarOrderByFilter(String filter){
+		Collection<Car> result = daoCars.getAllCarOrderByFilter(filter);
+		return result != null ? new ArrayList<Car>(result) : null;
 	}
 	
 	public Car getCar(int id) {

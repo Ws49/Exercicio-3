@@ -75,6 +75,8 @@ table{
     height: auto;
     max-height: 40%;
     color: white;
+    align-items: center;
+    gap: 2rem;
 }
 
 .center-container{
@@ -179,6 +181,23 @@ table{
     border: none;
 }
 
+.orderBy-container{
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.selectSort{
+    width: 50%;
+    background-color: var(--bg-color);
+    text-shadow:  0 0 10px blue;
+    outline: none;
+    border: none;
+    color: white;
+    font-size: 20px;
+    box-shadow: 0 0 10px blue;
+    border-radius: 10px;
+}
 /*CHEKPOINT WS*/
 
 .content-car img {

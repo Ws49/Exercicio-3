@@ -31,7 +31,15 @@ public class Controll {
 	
 	public Object getAllCars(Request request, Response response) {
 		response.type("application/json");
-		ArrayList<Car> cars = service.getAllCars();
+		
+		String params = request.queryParams("sort");
+		ArrayList<Car> cars;
+		
+		if(params == null) {
+			cars = service.getAllCars();
+		}else {
+			 cars = service.getAllCarOrderByFilter(request.queryParams("sort"));
+		}
 		
 		if(cars == null) {
 			response.status(400);
@@ -41,6 +49,8 @@ public class Controll {
 			return view.toJsonCars(cars);
 		}
 	}
+	
+
 	
 	public ModelAndView getCar(Request request, Response response) {
 		response.type("text/html");
