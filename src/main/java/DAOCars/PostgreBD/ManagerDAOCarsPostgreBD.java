@@ -106,7 +106,7 @@ public class ManagerDAOCarsPostgreBD implements DAOCars{
 
 
 	@Override
-	public boolean addCar(Car car) throws CarException{
+	public void addCar(Car car) throws CarException{
 		try {
 
 			PreparedStatement query = connection.getConn().prepareStatement(QuerySql.INSERT.getSql());
@@ -115,9 +115,8 @@ public class ManagerDAOCarsPostgreBD implements DAOCars{
 			query.setString(3, car.getType());
 			query.setInt(4, car.getPower());
 			query.setString(5, car.getPhoto());
-			int result =  query.executeUpdate();
+			query.executeUpdate();
 			query.close();
-			return result == 1 ?  true :  false;
 			
 		} catch (Exception e) {
 			if(e.getMessage().contains("duplicate key value")) {

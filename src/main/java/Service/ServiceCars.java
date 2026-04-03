@@ -44,11 +44,10 @@ public class ServiceCars {
 		return true;
 	}
 	
-	public boolean addCar(Car car) throws CarException{
+	public void addCar(Car car) throws CarException{
 			if(checkParamsCar(car)) {
-				return daoCars.addCar(car);
+				daoCars.addCar(car);
 			}
-			return false;
 	}
 	
 	public boolean updateCar(Car car) throws CarException{

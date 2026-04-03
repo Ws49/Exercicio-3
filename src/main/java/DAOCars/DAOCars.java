@@ -8,7 +8,7 @@ import Model.CarException;
 
 public interface DAOCars {
 	public Car getCar(int id);
-	public boolean addCar(Car car) throws CarException;
+	public void addCar(Car car) throws CarException;
 	public boolean updateCar(Car car) throws CarException;
 	public boolean deleteCar(int id);
 	public Collection<Car> getAllCar();
