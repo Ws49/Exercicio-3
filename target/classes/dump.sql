@@ -22,14 +22,14 @@ SET row_security = off;
 -- Name: adminpack; Type: EXTENSION; Schema: -; Owner: -
 --
 
-CREATE EXTENSION IF NOT EXISTS adminpack WITH SCHEMA pg_catalog;
+--CREATE EXTENSION IF NOT EXISTS adminpack WITH SCHEMA pg_catalog;
 
 
 --
 -- Name: EXTENSION adminpack; Type: COMMENT; Schema: -; Owner: 
 --
 
-COMMENT ON EXTENSION adminpack IS 'administrative functions for PostgreSQL';
+--COMMENT ON EXTENSION adminpack IS 'administrative functions for PostgreSQL';
 
 
 --
