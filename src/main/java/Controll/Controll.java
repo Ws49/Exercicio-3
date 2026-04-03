@@ -43,7 +43,7 @@ public class Controll {
 		
 		if(cars == null) {
 			response.status(400);
-			return  "{\"message\" : \"Falha ao adiconar carro\"}";
+			return  "{\"message\" : \"Falha ao ler os carros\"}";
 		}else {
 			response.status(200);
 			return view.toJsonCars(cars);
